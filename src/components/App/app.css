@@ -1,5 +1,30 @@
-.app {
+.navigation {
   display: flex;
-  padding: 40px;
+  justify-content: center;
+  padding: 15px 0;
+  width: 100%;
+}
+
+.navigation__item {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  padding: 5px;
+  margin-right: 15px;
+}
+
+.navigation__item:last-child {
+  margin-right: 0;
+}
+
+.navigation__item--active {
+  border-bottom: 2px solid black;
+}
+
+.app {
+  box-sizing: border-box;
+  display: flex;
   flex-wrap: wrap;
+  padding: 40px;
 }

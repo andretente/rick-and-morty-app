@@ -1,77 +1,59 @@
-import CharacterCard from "../CharacterCard/CharacterCard"
+import { useState } from "react"
+import classNamesHelper from "classnames"
+
+import HomePage from "../../pages/HomePage/HomePage"
+import CharactersPage from "../../pages/CharactersPage/CharactersPage"
+import CounterPageExample from "../../pages/CounterPage/CounterPage"
 
 import "./app.css"
 
-const mockData = {
-  results: [
-    {
-      id: 1,
-      name: "Rick Sanchez",
-      status: "Alive",
-      species: "Human",
-      type: "",
-      gender: "Male",
-      origin: {
-        name: "Earth",
-        url: "https://rickandmortyapi.com/api/location/1",
-      },
-      location: {
-        name: "Earth",
-        url: "https://rickandmortyapi.com/api/location/20",
-      },
-      image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-      episode: [
-        "https://rickandmortyapi.com/api/episode/1",
-        "https://rickandmortyapi.com/api/episode/2",
-        // ...
-      ],
-      url: "https://rickandmortyapi.com/api/character/1",
-      created: "2017-11-04T18:48:46.250Z",
-    },
-    {
-      id: 2,
-      name: "Morty Smith",
-      status: "Alive",
-      species: "Human",
-      type: "",
-      gender: "Male",
-      origin: {
-        name: "Earth",
-        url: "https://rickandmortyapi.com/api/location/1",
-      },
-      location: {
-        name: "Earth",
-        url: "https://rickandmortyapi.com/api/location/20",
-      },
-      image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-      episode: [
-        "https://rickandmortyapi.com/api/episode/1",
-        "https://rickandmortyapi.com/api/episode/2",
-        // ...
-      ],
-      url: "https://rickandmortyapi.com/api/character/2",
-      created: "2017-11-04T18:50:21.651Z",
-    },
-  ],
-}
-
 function App() {
-  return (
-    <div className="app">
-      <CharacterCard
-        imageSrc={mockData.results[0].image}
-        name={mockData.results[0].name}
-        status={mockData.results[0].status}
-        species={mockData.results[0].species}
-      />
+  const [currentPage, setCurrentPage] = useState("home")
 
-      <CharacterCard
-        imageSrc={mockData.results[1].image}
-        name={mockData.results[1].name}
-        status={mockData.results[1].status}
-        species={mockData.results[1].species}
-      />
-    </div>
+  return (
+    <>
+      {/* Temporary navigation */}
+      <nav className="navigation">
+        <button
+          className={classNamesHelper(
+            "navigation__item",
+            currentPage === "home" && "navigation__item--active"
+          )}
+          onClick={() => setCurrentPage("home")}
+        >
+          Home
+        </button>
+        <button
+          className={classNamesHelper(
+            "navigation__item",
+            currentPage === "characters" && "navigation__item--active"
+          )}
+          onClick={() => setCurrentPage("characters")}
+        >
+          Characters
+        </button>
+        <button
+          className={classNamesHelper(
+            "navigation__item",
+            currentPage === "counter" && "navigation__item--active"
+          )}
+          onClick={() => setCurrentPage("counter")}
+        >
+          Counter (Temporary)
+        </button>
+      </nav>
+      {/* Temporary navigation */}
+
+      <div className="app">
+        {currentPage === "home" && <HomePage />}
+
+        {currentPage === "characters" && <CharactersPage />}
+
+        {/* Temporary page */}
+        {currentPage === "counter" && <CounterPageExample />}
+        {/* Temporary page */}
+      </div>
+    </>
   )
 }
 

@@ -1,9 +1,17 @@
 import { useState } from "react"
 import PropTypes from "prop-types"
 
+import BaseImage from "../_images/BaseImage/BaseImage"
+
 import "./character-card.css"
 
-export default function CharcterCard(props) {
+export default function CharacterCard({
+  imageSrc,
+  location,
+  name,
+  status,
+  species,
+}) {
   const [isContentVisible, setIsContentVisible] = useState(false)
 
   function onClickShowContent() {
@@ -16,14 +24,22 @@ export default function CharcterCard(props) {
 
   return (
     <div className="character-card">
-      <img className="character-card__image" src={props.imageSrc} alt="" />
+      <BaseImage src={imageSrc} />
 
       {isContentVisible && (
         <div className="character-card__content">
-          <h2 className="character-card__content-title">{props.name}</h2>
+          <h2 className="character-card__content-title">{name}</h2>
 
           <p className="character-card__content-text">
-            {props.status} - {props.species}
+            {status} - {species}
+          </p>
+
+          <p className="character-card__content-text">
+            Current location: {location.current}
+          </p>
+
+          <p className="character-card__content-text">
+            Origin location: {location.origin}
           </p>
         </div>
       )}
@@ -38,8 +54,12 @@ export default function CharcterCard(props) {
   )
 }
 
-CharcterCard.propTypes = {
+CharacterCard.propTypes = {
   imageSrc: PropTypes.string,
+  location: PropTypes.shape({
+    current: PropTypes.string,
+    origin: PropTypes.string,
+  }),
   name: PropTypes.string,
   status: PropTypes.string,
   species: PropTypes.string,
