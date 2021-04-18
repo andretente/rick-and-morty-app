@@ -1,84 +1,49 @@
 import CharacterCard from "../../components/CharacterCard/CharacterCard"
+import axios from "axios"
 
 import "./characters-page.css"
-
-const mockData = {
-  results: [
-    {
-      id: 1,
-      name: "Rick Sanchez",
-      status: "Alive",
-      species: "Human",
-      type: "",
-      gender: "Male",
-      origin: {
-        name: "Earth",
-        url: "https://rickandmortyapi.com/api/location/1",
-      },
-      location: {
-        name: "Earth",
-        url: "https://rickandmortyapi.com/api/location/20",
-      },
-      image: "https://rickandmortyapi.com/api/character/avatar/1.jpeg",
-      episode: [
-        "https://rickandmortyapi.com/api/episode/1",
-        "https://rickandmortyapi.com/api/episode/2",
-        // ...
-      ],
-      url: "https://rickandmortyapi.com/api/character/1",
-      created: "2017-11-04T18:48:46.250Z",
-    },
-    {
-      id: 2,
-      name: "Morty Smith",
-      status: "Alive",
-      species: "Human",
-      type: "",
-      gender: "Male",
-      origin: {
-        name: "Earth",
-        url: "https://rickandmortyapi.com/api/location/1",
-      },
-      location: {
-        name: "Earth",
-        url: "https://rickandmortyapi.com/api/location/20",
-      },
-      image: "https://rickandmortyapi.com/api/character/avatar/2.jpeg",
-      episode: [
-        "https://rickandmortyapi.com/api/episode/1",
-        "https://rickandmortyapi.com/api/episode/2",
-        // ...
-      ],
-      url: "https://rickandmortyapi.com/api/character/2",
-      created: "2017-11-04T18:50:21.651Z",
-    },
-  ],
-}
+import { useEffect, useState } from "react"
 
 export default function CharactersPage() {
+  const [charactersList, setCharactersList] = useState([])
+
+  useEffect(() => {
+    async function fetchCharactersData() {
+      try {
+        const apiCallResponse = await axios.get(
+          "https://rickandmortyapi.com/api/character"
+        )
+
+        setCharactersList(apiCallResponse.data.results)
+      } catch (error) {
+        console.log("👷 Error 👷", error)
+      }
+    }
+
+    fetchCharactersData()
+  }, [])
+
+  if (charactersList.length === 0) {
+    return <p>Sorry, empty list</p>
+  }
+
   return (
     <div className="characters-page">
-      <CharacterCard
-        imageSrc={mockData.results[0].image}
-        location={{
-          current: mockData.results[0].location.name,
-          origin: mockData.results[0].origin.name,
-        }}
-        name={mockData.results[0].name}
-        species={mockData.results[0].species}
-        status={mockData.results[0].status}
-      />
-
-      <CharacterCard
-        imageSrc={mockData.results[1].image}
-        location={{
-          current: mockData.results[0].location.name,
-          origin: mockData.results[0].origin.name,
-        }}
-        name={mockData.results[1].name}
-        species={mockData.results[1].species}
-        status={mockData.results[1].status}
-      />
+      {charactersList?.map((characterItem) => {
+        return (
+          <CharacterCard
+            key={characterItem.id}
+            imageSrc={characterItem.image}
+            location={{
+              current: characterItem.location.name,
+              origin: characterItem.origin.name,
+            }}
+            name={characterItem.name}
+            species={characterItem.species}
+            status={characterItem.status}
+          />
+        )
+      })}
     </div>
   )
 }

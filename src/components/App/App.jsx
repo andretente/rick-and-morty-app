@@ -3,7 +3,6 @@ import classNamesHelper from "classnames"
 
 import HomePage from "../../pages/HomePage/HomePage"
 import CharactersPage from "../../pages/CharactersPage/CharactersPage"
-import CounterPageExample from "../../pages/CounterPage/CounterPage"
 
 import "./app.css"
 
@@ -32,15 +31,6 @@ function App() {
         >
           Characters
         </button>
-        <button
-          className={classNamesHelper(
-            "navigation__item",
-            currentPage === "counter" && "navigation__item--active"
-          )}
-          onClick={() => setCurrentPage("counter")}
-        >
-          Counter (Temporary)
-        </button>
       </nav>
       {/* Temporary navigation */}
 
@@ -48,10 +38,6 @@ function App() {
         {currentPage === "home" && <HomePage />}
 
         {currentPage === "characters" && <CharactersPage />}
-
-        {/* Temporary page */}
-        {currentPage === "counter" && <CounterPageExample />}
-        {/* Temporary page */}
       </div>
     </>
   )
