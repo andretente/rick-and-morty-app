@@ -1,35 +1,28 @@
 import CharacterCard from "../../components/CharacterCard/CharacterCard"
-import axios from "axios"
 
 import "./characters-page.css"
-import { useEffect, useState } from "react"
+import useFetchData from "../../hooks/useFetchData"
 
 export default function CharactersPage() {
-  const [charactersList, setCharactersList] = useState([])
+  const { isLoading, hasError, data } = useFetchData(
+    "https://rickandmortyapi.com/api/character"
+  )
 
-  useEffect(() => {
-    async function fetchCharactersData() {
-      try {
-        const apiCallResponse = await axios.get(
-          "https://rickandmortyapi.com/api/character"
-        )
+  if (isLoading) {
+    return <h1>I am loading, please wait!</h1>
+  }
 
-        setCharactersList(apiCallResponse.data.results)
-      } catch (error) {
-        console.log("👷 Error 👷", error)
-      }
-    }
+  if (hasError) {
+    return <h1>Sorry, something went wrong!</h1>
+  }
 
-    fetchCharactersData()
-  }, [])
-
-  if (charactersList.length === 0) {
+  if (data?.length === 0) {
     return <p>Sorry, empty list</p>
   }
 
   return (
     <div className="characters-page">
-      {charactersList?.map((characterItem) => {
+      {data?.map((characterItem) => {
         return (
           <CharacterCard
             key={characterItem.id}

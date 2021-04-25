@@ -1,8 +1,9 @@
 import { useState } from "react"
 import classNamesHelper from "classnames"
 
-import HomePage from "../../pages/HomePage/HomePage"
-import CharactersPage from "../../pages/CharactersPage/CharactersPage"
+import HomePage from "../pages/HomePage/HomePage"
+import CharactersPage from "../pages/CharactersPage/CharactersPage"
+import EpisodesPage from "../pages/EpisodesPage/EpisodesPage"
 
 import "./app.css"
 
@@ -22,6 +23,7 @@ function App() {
         >
           Home
         </button>
+
         <button
           className={classNamesHelper(
             "navigation__item",
@@ -31,6 +33,16 @@ function App() {
         >
           Characters
         </button>
+
+        <button
+          className={classNamesHelper(
+            "navigation__item",
+            currentPage === "episodes" && "navigation__item--active"
+          )}
+          onClick={() => setCurrentPage("episodes")}
+        >
+          Episodes
+        </button>
       </nav>
       {/* Temporary navigation */}
 
@@ -38,6 +50,8 @@ function App() {
         {currentPage === "home" && <HomePage />}
 
         {currentPage === "characters" && <CharactersPage />}
+
+        {currentPage === "episodes" && <EpisodesPage />}
       </div>
     </>
   )
