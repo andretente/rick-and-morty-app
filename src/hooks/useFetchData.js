@@ -1,32 +1,37 @@
 import axios from "axios"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
-export default function useFetchData(apiEndpoint) {
+export default function useFetchData({ url, options = { disable: false } }) {
   const [data, setData] = useState(null)
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
   const [hasError, setHasError] = useState(null)
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        const apiCallResponse = await axios.get(apiEndpoint)
+  const isDisabled = options.disable
 
-        setData(apiCallResponse.data.results)
-        setIsLoading(false)
-      } catch (error) {
-        setIsLoading(false)
-        setHasError(error)
-      }
+  const fetchData = useCallback(async function fetchData(endpoint) {
+    try {
+      const apiCallResponse = await axios.get(endpoint)
+
+      setData(apiCallResponse.data)
+      setIsLoading(false)
+    } catch (error) {
+      setIsLoading(false)
+      setHasError(error.response.data.error)
     }
+  }, [])
 
-    fetchData()
-  }, [apiEndpoint])
+  useEffect(() => {
+    if (!isDisabled) {
+      fetchData(url)
+    } else {
+      setIsLoading(false)
+    }
+  }, [url, fetchData, isDisabled])
 
-  const fecthedDataState = {
+  return {
     data: data,
     isLoading: isLoading,
     hasError: hasError,
+    refetch: fetchData,
   }
-
-  return fecthedDataState
 }

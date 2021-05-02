@@ -1,0 +1,20 @@
+.theme-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  height: 25px;
+  margin: 0;
+  outline: none;
+  padding: 0;
+  position: absolute;
+  right: 40px;
+  width: 25px;
+}
+
+.theme-button:focus-visible {
+  box-shadow: 0 0 0 4px white, 0 0 0 5px #014d40;
+  outline: none;
+  transition-duration: 200ms;
+  transition-property: box-shadow;
+  transition-timing-function: ease-out;
+}

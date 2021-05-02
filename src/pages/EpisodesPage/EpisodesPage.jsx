@@ -1,28 +1,40 @@
 import React from "react"
+import Card from "../../components/Card/Card"
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage"
+import Loading from "../../components/Loading/Loading"
+import PageLayout from "../../components/_layouts/PageLayout/PageLayout"
 import useFetchData from "../../hooks/useFetchData"
 
+import "./episodes-page.css"
+
 export default function EpisodesPage() {
-  const { isLoading, hasError, data } = useFetchData(
-    "https://rickandmortyapi.com/api/episode"
-  )
+  const { isLoading, hasError, data } = useFetchData({
+    url: "https://rickandmortyapi.com/api/episode",
+  })
 
   if (isLoading) {
-    return <h1>I am loading, please wait!</h1>
+    return <Loading />
   }
 
   if (hasError) {
-    return <h1>Sorry, something went wrong!</h1>
+    return <ErrorMessage />
   }
 
-  if (data?.length === 0) {
-    return <p>{hasError.error}</p>
+  if (data?.results.length === 0) {
+    return <p>Sorry, empty list</p>
   }
 
   return (
-    <div className="characters-page">
-      {data?.map((episode) => {
-        return <p key={episode.id}>{episode.name}</p>
+    <PageLayout className="episodes-page">
+      {data?.results.map((episode) => {
+        return (
+          <Card
+            key={episode.id}
+            className="episodes-page__item"
+            name={episode.name}
+          />
+        )
       })}
-    </div>
+    </PageLayout>
   )
 }

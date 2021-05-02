@@ -1,0 +1,12 @@
+.error-message {
+  padding: 150px 50px;
+  text-align: center;
+}
+
+.error-message__title {
+  font-size: 1.5rem;
+}
+
+.error-message__icon {
+  width: 50px;
+}

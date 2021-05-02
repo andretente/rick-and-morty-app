@@ -1,0 +1,21 @@
+.character-page {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+.character-page__image {
+  border-radius: 10px;
+  max-width: 350px;
+  overflow: hidden;
+}
+
+.character-page__list {
+  list-style-type: none;
+}
+
+.character-page__list-item {
+  margin-bottom: 10px;
+}

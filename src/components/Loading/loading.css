@@ -1,0 +1,25 @@
+.loading {
+  animation: fade-in 0.2s ease-in 0.3s forwards;
+  padding: 150px 50px;
+  opacity: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.loading__title {
+  font-size: 1.5rem;
+}
+
+.loading__icon {
+  width: 50px;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

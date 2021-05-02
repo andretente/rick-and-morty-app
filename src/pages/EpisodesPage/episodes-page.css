@@ -1,0 +1,9 @@
+.episodes-page {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.episodes-page__item {
+  margin: 10px 15px;
+}

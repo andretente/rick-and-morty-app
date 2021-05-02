@@ -1,4 +1,5 @@
-import { useState } from "react"
+import { createContext, useContext, useState } from "react"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import classNamesHelper from "classnames"
 
 import HomePage from "../pages/HomePage/HomePage"
@@ -6,54 +7,65 @@ import CharactersPage from "../pages/CharactersPage/CharactersPage"
 import EpisodesPage from "../pages/EpisodesPage/EpisodesPage"
 
 import "./app.css"
+import Navigation from "./Navigation/Navigation"
+import CharacterPage from "../pages/CharactersPage/CharacterPage/CharacterPage"
+import useTheme from "../hooks/useTheme"
+
+export const AppContext = createContext()
+
+export function useGlobalState() {
+  const globalState = useContext(AppContext)
+
+  return globalState
+}
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("home")
+  const [theme, setTheme] = useTheme("light")
+
+  const [charactersPageData, setCharactersPageData] = useState(null)
+  const [episodesPageData, setEpisdesPageData] = useState(null)
+
+  const globalState = {
+    theme,
+
+    charactersPageData,
+    setCharactersPageData,
+
+    episodesPageData,
+    setEpisdesPageData,
+  }
 
   return (
-    <>
-      {/* Temporary navigation */}
-      <nav className="navigation">
-        <button
-          className={classNamesHelper(
-            "navigation__item",
-            currentPage === "home" && "navigation__item--active"
-          )}
-          onClick={() => setCurrentPage("home")}
-        >
-          Home
-        </button>
+    <div
+      className={classNamesHelper(
+        "app",
+        theme === "dark" ? "app--dark" : "app--light"
+      )}
+    >
+      <AppContext.Provider value={globalState}>
+        <Router>
+          <Navigation onThemeChange={setTheme} theme={theme} />
 
-        <button
-          className={classNamesHelper(
-            "navigation__item",
-            currentPage === "characters" && "navigation__item--active"
-          )}
-          onClick={() => setCurrentPage("characters")}
-        >
-          Characters
-        </button>
+          <Switch>
+            <Route path="/characters">
+              <CharactersPage />
+            </Route>
 
-        <button
-          className={classNamesHelper(
-            "navigation__item",
-            currentPage === "episodes" && "navigation__item--active"
-          )}
-          onClick={() => setCurrentPage("episodes")}
-        >
-          Episodes
-        </button>
-      </nav>
-      {/* Temporary navigation */}
+            <Route path="/character/:id">
+              <CharacterPage />
+            </Route>
 
-      <div className="app">
-        {currentPage === "home" && <HomePage />}
+            <Route path="/episodes">
+              <EpisodesPage />
+            </Route>
 
-        {currentPage === "characters" && <CharactersPage />}
-
-        {currentPage === "episodes" && <EpisodesPage />}
-      </div>
-    </>
+            <Route path="/">
+              <HomePage />
+            </Route>
+          </Switch>
+        </Router>
+      </AppContext.Provider>
+    </div>
   )
 }
 

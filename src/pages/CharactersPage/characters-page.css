@@ -1,4 +1,28 @@
 .characters-page {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+}
+
+.characters-page__search-bar {
+  flex-basis: 100%;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.characters-page__link {
+  text-decoration: none;
+  margin: 10px 15px;
+}
+
+.characters-page__link:focus {
+  box-shadow: 0 0 0 4px white, 0 0 0 5px #014d40;
+  outline: none;
+  transition-duration: 200ms;
+  transition-property: box-shadow;
+  transition-timing-function: ease-out;
+}
+
+.characters-page__load-more {
+  margin: 0 auto 40px;
 }

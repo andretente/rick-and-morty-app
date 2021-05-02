@@ -1,0 +1,37 @@
+.load-more-button {
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  outline: 0;
+}
+
+.load-more-button:focus {
+  box-shadow: 0 0 0 4px white, 0 0 0 5px #014d40;
+  outline: none;
+  transition-duration: 200ms;
+  transition-property: box-shadow;
+  transition-timing-function: ease-out;
+}
+
+.load-more-button--dark {
+  color: #f7f7f7;
+}
+
+.load-more-button--light {
+  color: #212121;
+}
+
+.load-more-button__text {
+  display: block;
+}
+
+.load-more-button__icon {
+  display: block;
+  height: 30px;
+  transform: translateX(3px);
+  width: 30px;
+}
