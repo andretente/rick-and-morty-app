@@ -1,4 +1,9 @@
-.episodes-page {
+.episodes-page__scroll-bar {
+  position: fixed;
+  z-index: 10;
+}
+
+.episodes-page__card-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

@@ -1,5 +1,13 @@
 .page-layout {
+  left: 0;
+  height: calc(100vh - 60px);
   margin-top: 60px;
-  padding: 30px;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
   width: 100%;
+}
+
+.page-layout::-webkit-scrollbar {
+  display: none;
 }

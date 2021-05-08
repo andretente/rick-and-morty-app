@@ -1,13 +1,19 @@
-.characters-page {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+.characters-page__scroll-bar {
+  position: fixed;
+  z-index: 10;
 }
 
 .characters-page__search-bar {
   flex-basis: 100%;
   text-align: center;
   margin-bottom: 20px;
+  margin-top: 10px;
+}
+
+.characters-page__card-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .characters-page__link {
@@ -24,5 +30,5 @@
 }
 
 .characters-page__load-more {
-  margin: 0 auto 40px;
+  margin: 40px auto;
 }

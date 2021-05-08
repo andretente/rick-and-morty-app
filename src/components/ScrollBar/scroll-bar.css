@@ -1,0 +1,5 @@
+.scroll-bar {
+  background-color: #65d6ad;
+  height: 4px;
+  transition: all 0.03s ease-in-out;
+}
