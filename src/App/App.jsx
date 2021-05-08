@@ -43,7 +43,7 @@ function App() {
       )}
     >
       <AppContext.Provider value={globalState}>
-        <Router>
+        <Router basename="/rick-and-morty-app">
           <Navigation onThemeChange={setTheme} theme={theme} />
 
           <Switch>
