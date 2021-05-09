@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/rick-and-morty-app/static/css/main.c2217f4f.chunk.css",
-    "main.js": "/rick-and-morty-app/static/js/main.6049faaf.chunk.js",
-    "main.js.map": "/rick-and-morty-app/static/js/main.6049faaf.chunk.js.map",
-    "runtime-main.js": "/rick-and-morty-app/static/js/runtime-main.d5e40e2a.js",
-    "runtime-main.js.map": "/rick-and-morty-app/static/js/runtime-main.d5e40e2a.js.map",
-    "static/js/2.137b8208.chunk.js": "/rick-and-morty-app/static/js/2.137b8208.chunk.js",
-    "static/js/2.137b8208.chunk.js.map": "/rick-and-morty-app/static/js/2.137b8208.chunk.js.map",
-    "static/js/3.fcbcf4eb.chunk.js": "/rick-and-morty-app/static/js/3.fcbcf4eb.chunk.js",
-    "static/js/3.fcbcf4eb.chunk.js.map": "/rick-and-morty-app/static/js/3.fcbcf4eb.chunk.js.map",
+    "main.js": "/rick-and-morty-app/static/js/main.46eb53af.chunk.js",
+    "main.js.map": "/rick-and-morty-app/static/js/main.46eb53af.chunk.js.map",
+    "runtime-main.js": "/rick-and-morty-app/static/js/runtime-main.77e95d2b.js",
+    "runtime-main.js.map": "/rick-and-morty-app/static/js/runtime-main.77e95d2b.js.map",
+    "static/js/2.c964379f.chunk.js": "/rick-and-morty-app/static/js/2.c964379f.chunk.js",
+    "static/js/2.c964379f.chunk.js.map": "/rick-and-morty-app/static/js/2.c964379f.chunk.js.map",
+    "static/js/3.02eed2e8.chunk.js": "/rick-and-morty-app/static/js/3.02eed2e8.chunk.js",
+    "static/js/3.02eed2e8.chunk.js.map": "/rick-and-morty-app/static/js/3.02eed2e8.chunk.js.map",
     "index.html": "/rick-and-morty-app/index.html",
     "static/css/main.c2217f4f.chunk.css.map": "/rick-and-morty-app/static/css/main.c2217f4f.chunk.css.map",
-    "static/js/2.137b8208.chunk.js.LICENSE.txt": "/rick-and-morty-app/static/js/2.137b8208.chunk.js.LICENSE.txt",
+    "static/js/2.c964379f.chunk.js.LICENSE.txt": "/rick-and-morty-app/static/js/2.c964379f.chunk.js.LICENSE.txt",
     "static/media/rick-and-morty.a542419c.jpeg": "/rick-and-morty-app/static/media/rick-and-morty.a542419c.jpeg"
   },
   "entrypoints": [
-    "static/js/runtime-main.d5e40e2a.js",
-    "static/js/2.137b8208.chunk.js",
+    "static/js/runtime-main.77e95d2b.js",
+    "static/js/2.c964379f.chunk.js",
     "static/css/main.c2217f4f.chunk.css",
-    "static/js/main.6049faaf.chunk.js"
+    "static/js/main.46eb53af.chunk.js"
   ]
 }
