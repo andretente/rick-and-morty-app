@@ -8,7 +8,7 @@ export default function useFetchData({ url, options = { disable: false } }) {
 
   const isDisabled = options.disable
 
-  const fetchData = useCallback(async function fetchData(endpoint) {
+  const fetchData = useCallback(async function (endpoint) {
     try {
       const apiCallResponse = await axios.get(endpoint)
 

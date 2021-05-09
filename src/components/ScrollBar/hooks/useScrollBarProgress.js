@@ -6,6 +6,7 @@ export default function useScrollBarProgress() {
 
   function setScrollBarProgress() {
     if (scrollableContainerRef.current) {
+      // This is to calculate the percentage we scrolled on the container element
       const progress =
         (scrollableContainerRef.current.scrollTop * 100) /
         (scrollableContainerRef.current.scrollHeight -

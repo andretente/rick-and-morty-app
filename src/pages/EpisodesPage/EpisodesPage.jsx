@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import Card from "../../components/Card/Card"
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage"
 import Loading from "../../components/Loading/Loading"
@@ -8,11 +8,26 @@ import useFetchData from "../../hooks/useFetchData"
 import useScrollBarProgress from "../../components/ScrollBar/hooks/useScrollBarProgress"
 
 import "./episodes-page.css"
+import { useGlobalState } from "../../App/App"
 
 export default function EpisodesPage() {
+  const globalState = useGlobalState()
+  const globalEpisodesPageData = globalState.episodesPageData
+  const setGlobalEpisodesPageData = globalState.setEpisdesPageData
+
+  const hasAlreadyLoadedEpisodes = Boolean(globalEpisodesPageData)
+
   const { isLoading, hasError, data } = useFetchData({
     url: "https://rickandmortyapi.com/api/episode",
+    options: { disable: hasAlreadyLoadedEpisodes },
   })
+
+  useEffect(() => {
+    if (!hasAlreadyLoadedEpisodes) {
+      setGlobalEpisodesPageData(data)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   const {
     scrollBarRef,
@@ -44,7 +59,7 @@ export default function EpisodesPage() {
       />
 
       <div className="episodes-page__card-list">
-        {data?.results.map((episode) => {
+        {globalEpisodesPageData?.results.map((episode) => {
           return (
             <Card
               key={episode.id}

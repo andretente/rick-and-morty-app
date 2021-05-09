@@ -1,9 +1,6 @@
 import { Link } from "react-router-dom"
-import { useEffect, useState } from "react"
+import { useCallback, useEffect } from "react"
 
-import { useGlobalState } from "../../App/App"
-
-import useFetchData from "../../hooks/useFetchData"
 import useFilterByDataKey from "../../hooks/useFilterByDataKey"
 
 import Card from "../../components/Card/Card"
@@ -16,43 +13,16 @@ import SearchBar from "../../components/SearchBar/SearchBar"
 import "./characters-page.css"
 import ScrollBar from "../../components/ScrollBar/ScrollBar"
 import useScrollBarProgress from "../../components/ScrollBar/hooks/useScrollBarProgress"
+import useFetchCharacters from "./hooks/useFetchCharacters"
 
 export default function CharactersPage() {
-  const globalState = useGlobalState()
-  const globalCharactersPageData = globalState.charactersPageData
-  const setGlobalCharacterPageData = globalState.setCharactersPageData
-
-  const hasAlreadyLoadedCharacters = Boolean(globalCharactersPageData)
-
-  const { isLoading, hasError, data, refetch } = useFetchData({
-    url: "https://rickandmortyapi.com/api/character",
-    options: { disable: hasAlreadyLoadedCharacters },
-  })
-
-  const [localCharactersPageData, setLocalCharactersPageData] = useState(
-    globalCharactersPageData
-  )
-
-  useEffect(() => {
-    if (data && hasAlreadyLoadedCharacters) {
-      const updatedData = {
-        info: data.info,
-        results: [...localCharactersPageData.results, ...data.results],
-      }
-      setLocalCharactersPageData(updatedData)
-      setGlobalCharacterPageData(updatedData)
-    } else if (data) {
-      setLocalCharactersPageData(data)
-      setGlobalCharacterPageData(data)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data])
+  const { isLoading, isError, data, refetch } = useFetchCharacters()
 
   const {
     filterResults: localCharactersListAfterFilter,
     getFilteredItems,
   } = useFilterByDataKey({
-    initialItems: localCharactersPageData?.results,
+    initialItems: data?.results,
     key: "name",
   })
 
@@ -70,12 +40,16 @@ export default function CharactersPage() {
     setScrollBarProgress()
   }, [localCharactersListAfterFilter, setScrollBarProgress])
 
+  const onClickLoadMoreHandler = useCallback(() => {
+    refetch(data?.info?.next)
+  }, [data?.info?.next, refetch])
+
   if (isLoading) {
     return <Loading />
   }
 
-  if (hasError) {
-    return <ErrorMessage error={hasError} />
+  if (isError) {
+    return <ErrorMessage error={isError} />
   }
 
   return (
@@ -114,7 +88,7 @@ export default function CharactersPage() {
 
       <LoadMoreButton
         className="characters-page__load-more"
-        onClick={() => refetch(localCharactersPageData.info.next)}
+        onClick={onClickLoadMoreHandler}
       />
     </PageLayout>
   )

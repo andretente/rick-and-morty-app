@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 import classNamesHelper from "classnames"
+import { QueryClient, QueryClientProvider } from "react-query"
 
 import HomePage from "../pages/HomePage/HomePage"
 import CharactersPage from "../pages/CharactersPage/CharactersPage"
@@ -19,17 +20,15 @@ export function useGlobalState() {
   return globalState
 }
 
+const queryClient = new QueryClient()
+
 function App() {
   const [theme, setTheme] = useTheme("light")
 
-  const [charactersPageData, setCharactersPageData] = useState(null)
   const [episodesPageData, setEpisdesPageData] = useState(null)
 
   const globalState = {
     theme,
-
-    charactersPageData,
-    setCharactersPageData,
 
     episodesPageData,
     setEpisdesPageData,
@@ -43,27 +42,29 @@ function App() {
       )}
     >
       <AppContext.Provider value={globalState}>
-        <Router basename="/rick-and-morty-app">
-          <Navigation onThemeChange={setTheme} theme={theme} />
+        <QueryClientProvider client={queryClient}>
+          <Router basename="/rick-and-morty-app">
+            <Navigation onThemeChange={setTheme} theme={theme} />
 
-          <Switch>
-            <Route path="/characters">
-              <CharactersPage />
-            </Route>
+            <Switch>
+              <Route path="/characters">
+                <CharactersPage />
+              </Route>
 
-            <Route path="/character/:id">
-              <CharacterPage />
-            </Route>
+              <Route path="/character/:id">
+                <CharacterPage />
+              </Route>
 
-            <Route path="/episodes">
-              <EpisodesPage />
-            </Route>
+              <Route path="/episodes">
+                <EpisodesPage />
+              </Route>
 
-            <Route path="/">
-              <HomePage />
-            </Route>
-          </Switch>
-        </Router>
+              <Route path="/">
+                <HomePage />
+              </Route>
+            </Switch>
+          </Router>
+        </QueryClientProvider>
       </AppContext.Provider>
     </div>
   )
